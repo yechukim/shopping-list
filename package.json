@@ -1,0 +1,23 @@
+{
+	"name": "shoppling-list-refactoring",
+	"version": "1.0.0",
+	"main": "script.js",
+	"repository": "https://github.com/yechukim/shopping-list.git",
+	"author": "yechu <yechukim217@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"test": "jest --config=jest.config.json"
+	},
+	"devDependencies": {
+		"jest": "^29.7.0",
+		"jest-environment-jsdom": "^29.7.0"
+	},
+	"jest": {
+		"testEnvironment": "jsdom"
+	},
+	"dependencies": {
+		"@babel/core": "^7.24.4",
+		"@babel/preset-env": "^7.24.4"
+	},
+	"type": "module"
+}
