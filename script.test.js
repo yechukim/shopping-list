@@ -84,6 +84,8 @@ document.body.innerHTML = `
 
 const script = require('./script');
 
+window.alert = jest.fn()
+
 describe('Add Item 버튼이 눌렸을 때, 입력값이 없으면', () => {
     let e;
     beforeEach(() => {
