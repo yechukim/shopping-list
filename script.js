@@ -206,8 +206,3 @@ function init() {
 }
 
 init();
-
-module.exports = {
-  onAddItemSubmit,
-  isEditMode
-};

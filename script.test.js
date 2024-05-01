@@ -82,7 +82,7 @@ document.body.innerHTML = `
 </html>
   `;
 
-const script = require('./script');
+import * as script from './script.js';
 
 window.alert = jest.fn()
 
