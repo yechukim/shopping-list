@@ -1,18 +1,18 @@
-const itemForm = document.getElementById('item-form');
-const itemInput = document.getElementById('item-input');
-const itemList = document.getElementById('item-list');
-const clearBtn = document.getElementById('clear');
-const itemFilter = document.getElementById('filter');
-const formBtn = itemForm.querySelector('button');
-let isEditMode = false;
+export const itemForm = document.getElementById('item-form');
+export const itemInput = document.getElementById('item-input');
+export const itemList = document.getElementById('item-list');
+export const clearBtn = document.getElementById('clear');
+export const itemFilter = document.getElementById('filter');
+export const formBtn = itemForm.querySelector('button');
+export let isEditMode = false;
 
-function displayItems() {
+export function displayItems() {
   const itemsFromStorage = getItemsFromStorage();
   itemsFromStorage.forEach((item) => addItemToDOM(item));
   checkUI();
 }
 
-function onAddItemSubmit(e) {
+export function onAddItemSubmit(e) {
   e.preventDefault();
 
   // trim the input value to remove whitespace - disallowing duplicate items due to white space in the process
@@ -50,7 +50,7 @@ function onAddItemSubmit(e) {
   itemInput.value = '';
 }
 
-function addItemToDOM(item) {
+export function addItemToDOM(item) {
   // Create list item
   const li = document.createElement('li');
   li.appendChild(document.createTextNode(item));
@@ -62,7 +62,7 @@ function addItemToDOM(item) {
   itemList.appendChild(li);
 }
 
-function createButton(classes) {
+export function createButton(classes) {
   const button = document.createElement('button');
   button.className = classes;
   const icon = createIcon('fa-solid fa-xmark');
@@ -70,13 +70,13 @@ function createButton(classes) {
   return button;
 }
 
-function createIcon(classes) {
+export function createIcon(classes) {
   const icon = document.createElement('i');
   icon.className = classes;
   return icon;
 }
 
-function addItemToStorage(item) {
+export function addItemToStorage(item) {
   const itemsFromStorage = getItemsFromStorage();
 
   // Add new item to array
@@ -86,7 +86,7 @@ function addItemToStorage(item) {
   localStorage.setItem('items', JSON.stringify(itemsFromStorage));
 }
 
-function getItemsFromStorage() {
+export function getItemsFromStorage() {
   let itemsFromStorage;
 
   if (localStorage.getItem('items') === null) {
@@ -98,7 +98,7 @@ function getItemsFromStorage() {
   return itemsFromStorage;
 }
 
-function onClickItem(e) {
+export function onClickItem(e) {
   if (e.target.parentElement.classList.contains('remove-item')) {
     removeItem(e.target.parentElement.parentElement);
   } else if (e.target.closest('li')) {
@@ -106,12 +106,12 @@ function onClickItem(e) {
   }
 }
 
-function checkIfItemExists(item) {
+export function checkIfItemExists(item) {
   const itemsFromStorage = getItemsFromStorage();
   return itemsFromStorage.includes(item);
 }
 
-function setItemToEdit(item) {
+export function setItemToEdit(item) {
   isEditMode = true;
 
   itemList
@@ -124,7 +124,7 @@ function setItemToEdit(item) {
   itemInput.value = item.textContent;
 }
 
-function removeItem(item) {
+export function removeItem(item) {
   if (
     confirm(`Are you sure you want to remove the item "${item.textContent}"?`)
   ) {
@@ -138,7 +138,7 @@ function removeItem(item) {
   }
 }
 
-function removeItemFromStorage(item) {
+export function removeItemFromStorage(item) {
   let itemsFromStorage = getItemsFromStorage();
 
   // Filter out item to be removed
@@ -148,7 +148,7 @@ function removeItemFromStorage(item) {
   localStorage.setItem('items', JSON.stringify(itemsFromStorage));
 }
 
-function clearItems() {
+export function clearItems() {
   while (itemList.firstChild) {
     itemList.removeChild(itemList.firstChild);
   }
@@ -174,7 +174,7 @@ function filterItems(e) {
   });
 }
 
-function checkUI() {
+export function checkUI() {
   itemInput.value = '';
 
   const items = itemList.querySelectorAll('li');
@@ -194,7 +194,7 @@ function checkUI() {
 }
 
 // Initialize app
-function init() {
+export function init() {
   // Event Listeners
   itemForm.addEventListener('submit', onAddItemSubmit);
   itemList.addEventListener('click', onClickItem);
