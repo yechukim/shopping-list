@@ -79,3 +79,48 @@ describe('Add Item 버튼이 눌렸을 때, 입력값이 있고 동일한 아이
         expect(document.getElementById('item-input').value).not.toBe('');
     });
 });
+
+describe('Update Item 버튼이 눌렸을 때', () => {
+    let e;
+    beforeEach(() => {
+      initialize();
+      e = {
+          preventDefault: jest.fn(), // preventDefault 메서드를 가짐
+          target: { value: 'Sample Value' } // target 속성을 가짐
+      };
+      // 1. "oldItem" item 등록
+      document.getElementById('item-input').value = 'oldItem';
+      script.onAddItemSubmit(e);
+      // 2. "oldItem" item 업데이트 모드로 전환
+      // "oldItem" item 객체 조회
+      const items = script.itemList.querySelectorAll('li');
+      const filtered = Array.from(items).filter((i) => i.textContent == 'oldItem');
+      // 그 아이템을 업데이트 모드로 변경
+      script.setItemToEdit(filtered[0]);
+      // 3. "updatedItem" 으로 변경된 이름 입력
+      document.getElementById('item-input').value = 'updatedItem';
+    });
+
+    test('저장된 아이템을 제거한다', () => {
+        script.onAddItemSubmit(e);
+        const items = JSON.parse(localStorage.getItem('items'));
+        expect(items).not.toContain('oldItem');
+    });
+
+    test("아이템 편집 상태를 해제한다", () => {
+        script.onAddItemSubmit(e);
+        expect(script.isEditMode).toBe(false);
+    });
+
+    test('아이템을 저장한다', () => {
+        script.onAddItemSubmit(e);
+
+        const items = JSON.parse(localStorage.getItem('items'));
+        expect(items).toContain('updatedItem');
+    });
+
+    test("입력값을 지운다", () => {
+        script.onAddItemSubmit(e);
+        expect(document.getElementById('item-input').value).toBe('');
+    });
+});
