@@ -3,14 +3,19 @@ import * as script from './script.js';
 
 window.alert = jest.fn()
 
+function initialize() {
+  // 테스트 시작하기 전에 다른 테스트에서 설정한 값을 초기화하는 작업
+  script.clearItems();
+}
+
 describe('Add Item 버튼이 눌렸을 때, 입력값이 없으면', () => {
     let e;
     beforeEach(() => {
+        initialize();
         e = {
             preventDefault: jest.fn(), // preventDefault 메서드를 가짐
             target: { value: 'Sample Value' } // target 속성을 가짐
         };
-  
         // HTML 요소를 생성하여 테스트에 사용합니다.
         document.getElementById('item-input').value = '';
     });
@@ -24,11 +29,11 @@ describe('Add Item 버튼이 눌렸을 때, 입력값이 없으면', () => {
 describe('Add Item 버튼이 눌렸을 때, 입력값이 있고 기존에 없는 값이면', () => {
     let e;
     beforeEach(() => {
+      initialize();
         e = {
             preventDefault: jest.fn(), // preventDefault 메서드를 가짐
             target: { value: 'Sample Value' } // target 속성을 가짐
         };
-  
         // HTML 요소를 생성하여 테스트에 사용합니다.
         document.getElementById('item-input').value = 'item1';
         localStorage.setItem('items', JSON.stringify(['item2', 'item3']));
@@ -50,6 +55,7 @@ describe('Add Item 버튼이 눌렸을 때, 입력값이 있고 기존에 없는
 describe('Add Item 버튼이 눌렸을 때, 입력값이 있고 동일한 아이템이 이미 존재하면', () => {
     let e;
     beforeEach(() => {
+      initialize();
         e = {
             preventDefault: jest.fn(), // preventDefault 메서드를 가짐
             target: { value: 'Sample Value' } // target 속성을 가짐
