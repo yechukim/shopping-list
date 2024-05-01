@@ -4,7 +4,7 @@
   "description": "Vanilla JavaScript shopping list app from my Modern JS From The Beginning course.",
   "main": "script.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "node script.js"
   },
   "keywords": [],
