@@ -136,7 +136,27 @@ describe('Update Item 버튼이 눌렸을 때', () => {
 		expect(itemInput.value).toBe('')
 	})
 })
+/**
+ * @desc
+ * clear Items
+ *
+ */
 
+describe('clear all 버튼을 클릭한다', () => {
+	let e
+	beforeEach(() => {
+		initialize()
+		e = {
+			preventDefault: jest.fn(),
+		}
+	})
+
+	test('저장된 아이템을 제거한다 ', () => {
+		script.clearItems(e)
+		const items = JSON.parse(localStorage.getItem('items'))
+		expect(items).toBe(null)
+	})
+})
 /**
  * @desc
  * filter item
