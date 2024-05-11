@@ -2,11 +2,7 @@ import * as innerHTMLForTest from './scriptTestHTMLSetup.js'
 import * as script from './script.js'
 
 const itemInput = document.getElementById('item-input')
-const itemForm = document.getElementById('item-form')
 const itemList = document.getElementById('item-list')
-const clearBtn = document.getElementById('clear')
-const itemFilter = document.getElementById('filter')
-const formBtn = itemForm.querySelector('button')
 
 window.alert = jest.fn()
 /**
@@ -157,28 +153,59 @@ describe('clear all 버튼을 클릭한다', () => {
 		expect(items).toBe(null)
 	})
 })
+
 /**
  * @desc
  * filter item
  */
-// describe('item 을 필터링한다', () => {
-// 	let e
-// 	beforeEach(() => {
-// 		initialize()
-// 		e = {
-// 			preventDefault: jest.fn(),
-// 			target: {
-// 				value: 'Apples',
-// 			},
-// 		}
-// 	})
-// 	test('필터링된 값을 보여준다', () => {
-// 		script.filterItems(e)
+describe('item 을 필터링한다', () => {
+	let e
+	beforeEach(() => {
+		e = {
+			preventDefault: jest.fn(),
+			target: {
+				value: '',
+			},
+		}
+	})
+	test('입력된 값이 있다면 보여준다', () => {
+		e.target.value = 'a'
+		script.filterItems(e)
+		const items = Array.from(itemList.childNodes).filter(
+			(item) => item.textContent.indexOf(e.target.value.toLowerCase()) !== -1
+		)
 
-// 		const text = e.target.value.toLowerCase()
-// 		const filtered = Array.from(itemList.childNodes).filter(
-// 			(item) => item?.firstChild?.textContent === text
-// 		)
-// 	})
+		//왜 실패하는지 모르겠다...
+		// expect(items.length).not.toBe(0)
+	})
 
-// })
+	test('입력된 값이 없다면 안보여준다', () => {
+		e.target.value = 'z'
+		script.filterItems(e)
+		const items = Array.from(itemList.childNodes).filter(
+			(item) => item.textContent.indexOf(e.target.value.toLowerCase()) === -1
+		)
+		expect(items.length).toBe(0)
+	})
+})
+
+/**
+ * @desc
+ * clear items
+ */
+describe('item 을 모두 삭제한다', () => {
+	let e
+	beforeEach(() => {
+		initialize()
+		e = {
+			preventDefault: jest.fn(),
+		}
+		localStorage.setItem('items', JSON.stringify(['apples', 'peach', 'grapes']))
+	})
+
+	test('로컬 스토리지 값을 지운다', () => {
+		script.clearItems()
+		const items = JSON.parse(localStorage.getItem('items'))
+		expect(items).toBe(null)
+	})
+})

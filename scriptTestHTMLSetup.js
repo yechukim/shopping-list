@@ -1,4 +1,3 @@
-
 document.documentElement.innerHTML = `
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +48,7 @@ document.documentElement.innerHTML = `
       </div>
 
       <ul id="item-list" class="items">
-        <!-- <li>
+         <li>
           Apples
           <button class="remove-item btn-link text-red">
             <i class="fa-solid fa-xmark"></i>
@@ -72,7 +71,7 @@ document.documentElement.innerHTML = `
           <button class="remove-item btn-link text-red">
             <i class="fa-solid fa-xmark"></i>
           </button>
-        </li> -->
+        </li> 
       </ul>
 
       <button id="clear" class="btn-clear">Clear All</button>
@@ -81,4 +80,4 @@ document.documentElement.innerHTML = `
     <script src="script.js"></script>
   </body>
 </html>
-  `;
+  `
