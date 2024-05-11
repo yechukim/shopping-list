@@ -148,9 +148,13 @@ describe('clear all 버튼을 클릭한다', () => {
 	})
 
 	test('저장된 아이템을 제거한다 ', () => {
-		script.clearItems(e)
+		script.addItemToDOM('Apples')
+		script.addItemToDOM('Peach')
+
+		script.clearItems()
 		const items = JSON.parse(localStorage.getItem('items'))
 		expect(items).toBe(null)
+		expect(itemList.children.length).toBe(0)
 	})
 })
 
@@ -208,4 +212,18 @@ describe('item 을 모두 삭제한다', () => {
 		const items = JSON.parse(localStorage.getItem('items'))
 		expect(items).toBe(null)
 	})
+})
+
+/**
+ * @desc
+ * display items
+ */
+test('dom이 로드되면 displayItems를 호출한다', () => {
+	//storage에 값이 없을땐 0이고
+	expect(itemList.children.length).toBe(0)
+
+	// storage에 값이 있다면 dom에 추가함
+	localStorage.setItem('items', JSON.stringify(['Apples']))
+	script.displayItems()
+	expect(itemList.children.length).toBeGreaterThan(0)
 })
